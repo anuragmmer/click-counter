@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin: 20px auto; 
+    max-width: 600px;
+}
+
+.button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.action-buttons {
+    margin: 20px auto;
+}
+
+#undo-button, #save-csv-button {
+    background-color: black;
+    color: white;
+    padding: 10px 20px; 
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#undo-button {
+    margin-right: 10px;
+}
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin: 20px auto; 
+    max-width: 600px;
+}
+
+.button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.action-buttons {
+    margin: 20px auto;
+}
+
+#undo-button, #save-csv-button {
+    background-color: black;
+    color: white;
+    padding: 10px 20px; 
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#undo-button {
+    margin-right: 10px;
+}
