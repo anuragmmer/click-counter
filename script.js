@@ -1,3 +1,9 @@
+// script.js
+// Grid Button Counter
+// Author: Anurag
+// Description: JavaScript code to handle button clicks and counter functionality.
+// License: MIT (See LICENSE file for details)
+
 document.addEventListener("DOMContentLoaded", function () {
     let numButtons = parseInt(prompt("Enter the number of buttons (1-20):"));
     numButtons = Math.max(1, Math.min(20, numButtons));
