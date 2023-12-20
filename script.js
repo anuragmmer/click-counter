@@ -9,10 +9,15 @@ document.addEventListener("DOMContentLoaded", function () {
     numButtons = Math.max(1, Math.min(20, numButtons));
 
     const gridContainer = document.getElementById("grid-container");
-    const buttons = []; 
-    const clickCounts = []; 
+    const buttons = [];
+    const clickCounts = [];
+    let lastClickedButtonIndex = -1;
 
-    let lastClickedButtonIndex = -1; 
+    function updateButtonClickCount(buttonIndex) {
+        clickCounts[buttonIndex - 1] = (clickCounts[buttonIndex - 1] || 0) + 1;
+        buttons[buttonIndex - 1].innerText = `Button ${buttonIndex} (${clickCounts[buttonIndex - 1]})`;
+        lastClickedButtonIndex = buttonIndex;
+    }
 
     for (let i = 1; i <= numButtons; i++) {
         const button = document.createElement("button");
@@ -20,25 +25,33 @@ document.addEventListener("DOMContentLoaded", function () {
         button.innerText = `Button ${i} (0)`;
 
         (function (buttonIndex) {
-            let clickCount = 0;
             button.addEventListener("click", function () {
-                clickCounts[buttonIndex - 1] = (clickCounts[buttonIndex - 1] || 0) + 1;
-                button.innerText = `Button ${buttonIndex} (${clickCounts[buttonIndex - 1]})`;
-
-                lastClickedButtonIndex = buttonIndex;
+                updateButtonClickCount(buttonIndex);
             });
         })(i);
 
         gridContainer.appendChild(button);
-        buttons.push(button); 
-        clickCounts.push(0); 
+        buttons.push(button);
+        clickCounts.push(0);
+    }
+
+    const clickedButtonsStack = [];
+
+    function updateButtonClickCount(buttonIndex) {
+        clickCounts[buttonIndex - 1] = (clickCounts[buttonIndex - 1] || 0) + 1;
+        buttons[buttonIndex - 1].innerText = `Button ${buttonIndex} (${clickCounts[buttonIndex - 1]})`;
+        lastClickedButtonIndex = buttonIndex;
+
+        clickedButtonsStack.push(buttonIndex);
     }
 
     const undoButton = document.getElementById("undo-button");
     undoButton.addEventListener("click", function () {
-        if (lastClickedButtonIndex >= 1 && clickCounts[lastClickedButtonIndex - 1] > 0) {
-            clickCounts[lastClickedButtonIndex - 1]--;
-            buttons[lastClickedButtonIndex - 1].innerText = `Button ${lastClickedButtonIndex} (${clickCounts[lastClickedButtonIndex - 1]})`;
+        if (clickedButtonsStack.length > 0) {
+            const buttonToUndo = clickedButtonsStack.pop();
+            clickCounts[buttonToUndo - 1]--;
+            buttons[buttonToUndo - 1].innerText = `Button ${buttonToUndo} (${clickCounts[buttonToUndo - 1]})`;
+            lastClickedButtonIndex = buttonToUndo;
         }
     });
 
@@ -50,8 +63,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const clicks = clickCounts[index] || 0;
             csvData += `${serial},${clicks}\n`;
         });
+
         const csvBlob = new Blob([csvData], { type: "text/csv" });
         const csvUrl = URL.createObjectURL(csvBlob);
+
         const a = document.createElement("a");
         a.href = csvUrl;
         a.download = "button_click_data.csv";
