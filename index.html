@@ -1,24 +1,80 @@
-    <!-- 
-    Grid Button Counter
-    A simple web application to track button clicks in a grid.
-    Author: Anurag
-    License: MIT (See LICENSE file for details)
-    -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grid Button Counter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Obsrvr | Research Counter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Grid Button Counter</h1>
-    <div id="grid-container"></div>
 
-    <div class="action-buttons">
-        <button id="undo-button">Undo -1</button>
-        <button id="save-csv-button">Save as CSV</button>
+    <header>
+        <div class="logo">Obsrvr<span class="dot">.</span></div>
+        <div id="project-title-display">Untitled Session</div>
+    </header>
+
+    <main id="grid-container" class="grid-view"></main>
+
+    <nav class="bottom-bar">
+        <button id="mode-toggle" class="icon-btn" aria-label="Toggle Edit Mode">
+            <span class="icon">✎</span>
+            <span class="label">Edit</span>
+        </button>
+        
+        <div class="divider"></div>
+
+        <button id="undo-button" class="icon-btn" aria-label="Undo Last Action">
+            <span class="icon">↶</span>
+            <span class="label">Undo</span>
+        </button>
+
+        <button id="export-button" class="primary-btn">
+            Export CSV
+        </button>
+    </nav>
+
+    <div id="setup-modal" class="modal active">
+        <div class="modal-content">
+            <h2>New Session</h2>
+            <p>Configure your observation grid.</p>
+            <div class="input-group">
+                <label>Project Name</label>
+                <input type="text" id="setup-name" value="Market_Research_01">
+            </div>
+            <div class="input-group">
+                <label>Number of Counters</label>
+                <input type="number" id="setup-count" min="1" max="20" value="6">
+            </div>
+            <button id="start-btn" class="full-width-btn">Create Grid</button>
+        </div>
+    </div>
+
+    <div id="rename-modal" class="modal">
+        <div class="modal-content">
+            <h3>Rename Variable</h3>
+            <input type="text" id="rename-input" placeholder="e.g. Red Cars">
+            <div class="modal-actions">
+                <button class="cancel-btn" id="rename-cancel">Cancel</button>
+                <button class="confirm-btn" id="rename-confirm">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="export-modal" class="modal">
+        <div class="modal-content">
+            <h3>Export Data</h3>
+            <div class="input-group">
+                <label>Filename</label>
+                <input type="text" id="export-filename">
+            </div>
+            <div class="modal-actions">
+                <button class="cancel-btn" id="export-cancel">Cancel</button>
+                <button class="confirm-btn" id="export-confirm">Download CSV</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
