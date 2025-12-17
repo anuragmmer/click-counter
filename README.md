@@ -1,68 +1,53 @@
-# Click Counter Web Application
+## Obsrvr.
 
-This repository contains the source code for a simple "Click Counter" web application. The application allows users to create a grid of buttons, track the number of clicks on each button, and provides the option to undo the last click. Additionally, users can download the button click data in CSV format.
+**Precision Research & Market Observation Tool**
 
-## Live Demo
-
-Check out the live demo of the Click Counter web application here: [Click Counter Webpage](https://anuragmmer.github.io/click-counter/)
-
-## Features
-
-- Create a grid of buttons by specifying the number of buttons (1-20).
-- Click on each button to increment its click count, which is displayed on the button.
-- Undo the last click on a button to decrement its click count.
-- Save the button click data as a CSV file for further analysis.
-
-## How to Use
-
-1. Visit the [Click Counter Webpage](https://anuragmmer.github.io/click-counter/).
-2. Enter the desired number of buttons (1-20) in the prompt and click "OK."
-3. The grid of buttons will be displayed on the page.
-4. Click on any button to increment its click count. The updated click count will be displayed on the button.
-5. To undo the last click on a button, click the "Undo" button.
-6. To download the button click data as a CSV file, click the "Save as CSV" button.
-
-## Technologies Used
-
-- HTML
-- CSS
-- JavaScript
-
-## Installation
-
-To run the Click Counter web application locally, follow these steps:
-
-1. Clone the repository to your local machine:
-
-```
-git clone https://github.com/anuragmmer/click-counter.git
-```
-
-2. Navigate to the project directory:
-
-```
-cd click-counter
-```
-
-3. Open the `index.html` file in your web browser.
-
-## Local Installation (Alternative Method)
-
-1. Click on the "Code" button located near the top-right corner of the repository.
-2. Select "Download ZIP" from the dropdown menu. This will download the entire repository as a zip file to the user's computer.
-3. Extract the downloaded zip file to a location of their choice on their local machine.
-4. Open the extracted folder and locate the "index.html" file.
-5. Double-click on the "index.html" file to open it in their web browser.
-6. The Click Counter web application will now be displayed in their web browser, and they can start using it to create a grid of buttons and track their click counts.
-
-## Contributions
-
-Contributions to the Click Counter web application are welcome. If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](https://github.com/anuragmmer/click-counter/blob/main/LICENSE).
+Obsrvr is a high-performance, minimalist web application designed for field researchers and market observers to track frequency and timing data with zero-latency, allowing you to log complex variables via large touch targets and haptic feedback without looking away from your subject.
 
 ---
 
-Thank you for checking out the Click Counter web application! We hope you find it useful and have fun tracking button clicks!
+### Core Features
+
+* **Customizable Research Grid:** Generate a dynamic grid of up to 20 unique variable counters instantly.
+* **Sequential Interval Tracking:** Capture the exact millisecond-precision time elapsed between any two button presses (Global Interval).
+* **Variable-Specific Delta:** Track the frequency and time gap between successive presses of the same variable to identify patterns in specific behaviors.
+* **Zen Mode (Focus):** A full-screen interface that strips away all UI chrome, leaving only the touch targets to prevent accidental navigation.
+* **Variable Renaming:** Real-time labeling of counters to adapt to changing observation environments.
+* **Export:** Pre-named CSV exports that switch between simple summary statistics and deep-dive sequential logs based on your session settings.
+* **Tactile UX:** Integrated haptic (vibration) feedback for every successful log, ensuring data entry is confirmed without visual checks.
+
+---
+
+### Technical Deep Dive
+
+#### Architecture & State
+
+The app operates on a **Single-Source-of-Truth (SSoT)** state object. Unlike traditional DOM-reliant counters, every click updates a central JavaScript state before reflecting in the UI. This ensures that the history stack and log array remain synchronized for accurate undo operations and exports.
+
+#### Time-Series Data Collection
+
+Obsrvr utilizes the `Date.now()` method to generate Unix timestamps for every event.
+
+* **Global Interval Calculation:** t_{\Delta} = t_{current} - t_{last\_any\_press}
+* **Variable Interval Calculation:** t_{var\Delta} = t_{current} - t_{last\_specific\_press}
+This data is pushed into a `clickLogs` array, forming a linear time-series dataset that can be imported into R, Python, or Excel for advanced statistical analysis.
+
+#### Mobile Performance Optimization
+
+To achieve a "native app" feel in a browser environment, the following engineering choices were made:
+
+* **Touch-Action Manipulation:** The CSS `touch-action: manipulation` property is applied globally to kill the 300ms click delay on mobile browsers and disable double-tap zooming.
+* **Haptic Bridge:** Uses the `navigator.vibrate` API to provide physical feedback, mimicking the sensation of a mechanical tally counter.
+* **Viewport Locking:** Employs `user-scalable=no` and `maximum-scale=1.0` meta tags to prevent accidental layout shifts during rapid-fire tapping sessions.
+
+#### Deployment
+
+Designed for serverless hosting. The app is a static site (HTML5/CSS3/Vanilla JS) that requires no backend, making it ideal for **GitHub Pages** deployment. Data is processed entirely client-side, ensuring researcher privacy and offline reliability.
+
+---
+
+### Setup
+
+1. Upload `index.html`, `styles.css`, and `script.js` to your repository.
+2. Enable **GitHub Pages** in settings.
+3. Access the URL on your mobile device and "Add to Home Screen" for the full PWA experience.
