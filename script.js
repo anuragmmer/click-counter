@@ -1,4 +1,4 @@
-/* script.js */
+/* script.js - Obsrvr Logic */
 
 document.addEventListener("DOMContentLoaded", function () {
     // --- State Management ---
