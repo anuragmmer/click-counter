@@ -29,6 +29,7 @@ body {
     height: 100vh;
     overflow-x: hidden;
     transition: padding 0.3s ease;
+    overscroll-behavior-y: none;
 }
 
 /* --- Material Symbols --- */
