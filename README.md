@@ -2,7 +2,7 @@
 
 **Precision Research & Market Observation Tool**
 
-Obsrvr is a high-performance, minimalist web application designed for field researchers and market observers to track frequency and timing data with zero-latency, allowing you to log complex variables via large touch targets and haptic feedback without looking away from your subject.
+Obsrvr is a high-performance, minimalist web application designed for field researchers and market observers to track frequency and timing data with zero-latency, allowing you to log complex variables via large touch targets and haptic feedback without looking away from your subject. Visit [here](anuragmmer.github.io/click-counter) to use.
 
 ---
 
