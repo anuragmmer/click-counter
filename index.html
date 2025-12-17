@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,21 +19,31 @@
 
     <main id="grid-container" class="grid-view"></main>
 
+    <button id="exit-focus-btn" class="fab" aria-label="Exit Full Screen">
+        <span class="material-symbols-rounded">close_fullscreen</span>
+    </button>
+
     <nav class="bottom-bar">
         <button id="mode-toggle" class="icon-btn" aria-label="Toggle Edit Mode">
-            <span class="icon">✎</span>
+            <span class="material-symbols-rounded icon">edit</span>
             <span class="label">Edit</span>
         </button>
         
+        <button id="focus-btn" class="icon-btn" aria-label="Full Screen">
+            <span class="material-symbols-rounded icon">fullscreen</span>
+            <span class="label">Focus</span>
+        </button>
+
         <div class="divider"></div>
 
         <button id="undo-button" class="icon-btn" aria-label="Undo Last Action">
-            <span class="icon">↶</span>
+            <span class="material-symbols-rounded icon">undo</span>
             <span class="label">Undo</span>
         </button>
 
         <button id="export-button" class="primary-btn">
-            Export CSV
+            <span class="material-symbols-rounded icon-sm">download</span>
+            <span>Export</span>
         </button>
     </nav>
 
@@ -40,14 +51,41 @@
         <div class="modal-content">
             <h2>New Session</h2>
             <p>Configure your observation grid.</p>
+            
             <div class="input-group">
                 <label>Project Name</label>
                 <input type="text" id="setup-name" value="Market_Research_01">
             </div>
+            
             <div class="input-group">
                 <label>Number of Counters</label>
                 <input type="number" id="setup-count" min="1" max="20" value="6">
             </div>
+
+            <div class="toggle-group">
+                <div class="toggle-row">
+                    <div class="toggle-label">
+                        <span>Count event intervals</span>
+                        <small>Logs time between any button press.</small>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-global-interval">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-row hidden" id="row-var-interval">
+                    <div class="toggle-label">
+                        <span>Count variable intervals</span>
+                        <small>Logs time between presses of the same variable.</small>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-var-interval">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
             <button id="start-btn" class="full-width-btn">Create Grid</button>
         </div>
     </div>
@@ -66,6 +104,7 @@
     <div id="export-modal" class="modal">
         <div class="modal-content">
             <h3>Export Data</h3>
+            <p id="export-desc">Download count summary.</p>
             <div class="input-group">
                 <label>Filename</label>
                 <input type="text" id="export-filename">
